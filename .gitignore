@@ -1,0 +1,5 @@
+# 项目排除路径
+/common/target/
+/model/target/
+/web/web-admin/target/
+/web/web-app/target/

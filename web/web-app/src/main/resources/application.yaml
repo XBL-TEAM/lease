@@ -1,0 +1,54 @@
+server:
+  port: 8081
+
+spring:
+
+  #连接池
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.163.101:3306/lease?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2b8
+    username: root
+    password:
+    hikari:
+      connection-test-query: SELECT 1 # 自动检测连接
+      connection-timeout: 60000 #数据库连接超时时间,默认30秒
+      idle-timeout: 500000 #空闲连接存活最大时间，默认600000（10分钟）
+      max-lifetime: 540000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      maximum-pool-size: 12 #连接池最大连接数，默认是10
+      minimum-idle: 10 #最小空闲连接数量
+      pool-name: SPHHikariPool # 连接池名称
+
+  #json序列化
+  jackson:
+    time-zone: GMT+8
+
+# 解决 No serializer found for class 问题
+# 用来忽略实体在json序列化过程中产生的空 handler 字段
+# 局部生效请使用注解：@JsonIgnoreProperties(value = { "handler" })
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+  #redis
+  data:
+    redis:
+      host: 192.168.163.101
+      port: 6379
+      database: 0
+      password: 123456
+
+#knife4j调试时平展参数列表
+springdoc:
+  default-flat-param-object: true
+
+#用于打印框架生成的sql语句，便于调试
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#阿里云短信服务配置
+aliyun:
+  sms:
+    access-key-id: LTAI5tBNUd7gs2NZgG8yh14W
+    access-key-secret: P6Fx42IQOD25RyUzZ1EOUZZVmPXJGf
+    endpoint: dysmsapi.aliyuncs.com
+
